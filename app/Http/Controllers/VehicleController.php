@@ -17,6 +17,7 @@ class VehicleController extends Controller
         $vehicles = Vehicle::all()->each(function ($vehicle) {
             $vehicle->makeHidden(["image", "id"]);
         });;
+
         return \View::make("vehicles")->with(["vehicles" => $vehicles]);
     }
 

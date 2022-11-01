@@ -160,4 +160,5 @@ img {
 .carattrs
 {
     font-size: 25px;
+    border-bottom: blue solid 1px;
 }

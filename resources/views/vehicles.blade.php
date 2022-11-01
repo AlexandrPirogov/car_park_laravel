@@ -10,17 +10,16 @@
 <title>Document</title>
 </head>
 <body class="maintext">
-    <h1>Vehicles</h1>
+    <h1 style="font-size: 150px">Car Park</h1>
     <div class="cars">
             @foreach ($vehicles as $vehicle)
             <div class="container">
             <img src="{{ asset('/storage/'.$vehicle->image) }}" alt="" width="100" height="100"/>
 
             <div class="container">
-                @foreach($vehicle->toArray() as $key => $attr)
-                       <p class="carattrs"> {{$key}}: {{$attr}}</p>
-                @endforeach
-
+                       <p class="carattrs"><b> Пробег</b>: {{$vehicle['mileage']}}</p>
+                       <p class="carattrs"><b> Короткий номер</b>: {{$vehicle['short_number']}}</p>
+                       <p class="carattrs"><b> Дата выпуска</b>: {{$vehicle['delivery_date']}}</p>
             </div>
             </div>
             @endforeach
