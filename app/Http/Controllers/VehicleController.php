@@ -14,7 +14,10 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
+        $vehicles = Vehicle::all()->each(function ($vehicle) {
+            $vehicle->makeHidden(["image", "id"]);
+        });;
+        return \View::make("vehicles")->with(["vehicles" => $vehicles]);
     }
 
     /**
@@ -46,7 +49,9 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        //
+        return \View::make("vehicle")->with(["mileage" => $vehicle->mileage,
+                                              "short_number" => $vehicle->short_number,
+                                              "image" => $vehicle->image]);
     }
 
     /**
@@ -81,5 +86,14 @@ class VehicleController extends Controller
     public function destroy(Vehicle $vehicle)
     {
         //
+    }
+
+    public function img(Vehicle $vehicle)
+    {
+        header("Content-Type: image/png");
+        return ase64_encode(pg_unescape_bytea(stream_get_contents($vehicle->image)));
+        return \View::make("vehicle", )->with(["mileage" => $vehicle->mileage,
+        "short_number" => $vehicle->short_number,
+        "image" => $vehicle->image]);;
     }
 }

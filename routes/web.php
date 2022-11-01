@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::controller(App\Http\Controllers\VehicleController::class)->group(function () {
+    Route::get('/vehicles', 'index');
+    Route::get('/vehicles/{vehicle}', 'img');
+    Route::get('/vehicles/{vehicle}', 'show');
+});

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use app\Models\Vehicle;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::controller(App\Http\Controllers\VehicleController::class)->group(function () {
+    Route::get('/vehicles', 'index');
+    Route::get('/vehicles/{vehicle}', 'show');
+    Route::get('/vehicles/{vehicle}', 'img');
+});
+

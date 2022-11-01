@@ -10,4 +10,5 @@ class Vehicle extends Model
     use HasFactory;
 
     public $timestamps = false;
+
 }

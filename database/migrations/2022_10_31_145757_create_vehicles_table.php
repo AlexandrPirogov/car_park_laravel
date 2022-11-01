@@ -15,8 +15,12 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer("mileage");
+            $table->string("short_number");
+            $table->date("delivery_date");
+            $table->string("image");
         });
+        //DB::statement("ALTER TABLE vehicles ADD image bytea");
     }
 
     /**
