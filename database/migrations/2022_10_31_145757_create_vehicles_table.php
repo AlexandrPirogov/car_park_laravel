@@ -15,6 +15,8 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
+            $table->integer('brand_id');
+            $table->foreign('brand_id')->references('id')->on('brands');
             $table->integer("mileage");
             $table->string("short_number");
             $table->date("delivery_date");

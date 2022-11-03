@@ -19,6 +19,22 @@ Route::get('/', function () {
 
 Route::controller(App\Http\Controllers\VehicleController::class)->group(function () {
     Route::get('/vehicles', 'index');
-    Route::get('/vehicles/{vehicle}', 'img');
     Route::get('/vehicles/{vehicle}', 'show');
+
+    Route::get('/vehicle/create', function()
+    {
+        return \View::make('createvehicle');
+    });
+    Route::post('/vehicles', 'store');
+});
+
+Route::controller(App\Http\Controllers\BrandController::class)->group(function () {
+    Route::get('/brands', 'index');
+    Route::get('/brands/{brand}', 'show');
+
+    Route::get('/brand/create', function()
+    {
+        return \View::make('createbrand');
+    });
+    Route::post('/brands', 'store');
 });

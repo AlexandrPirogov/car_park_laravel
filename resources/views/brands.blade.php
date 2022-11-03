@@ -12,14 +12,15 @@
 <body class="maintext">
     <h1 style="font-size: 150px">Car Park</h1>
     <div class="cars">
-            @foreach ($vehicles as $vehicle)
+            @foreach ($brands as $brand)
             <div class="container">
-            <img src="{{ asset('/storage/images/vehicles/'.$vehicle->image) }}" alt="" width="100" height="100"/>
+            <img src="{{ asset('/storage/images/brands/'.$brand->logo) }}" alt="" width="100" height="100"/>
 
             <div class="container">
-                       <p class="carattrs"><b> Пробег</b>: {{$vehicle['mileage']}}</p>
-                       <p class="carattrs"><b> Короткий номер</b>: {{$vehicle['short_number']}}</p>
-                       <p class="carattrs"><b> Дата выпуска</b>: {{$vehicle['delivery_date']}}</p>
+                       <p class="carattrs"><b> Брэнд: </b>: {{$brand['brand']}}</p>
+                       <p class="carattrs"><b> Версия: </b>: {{$brand['version']}}</p>
+                       <p class="carattrs"><b> Тип: </b>: {{$brand['type']}}</p>
+                       <p class="carattrs"><b> Дата выпуска: </b>: {{$brand['release_date']}}</p>
             </div>
             </div>
             @endforeach

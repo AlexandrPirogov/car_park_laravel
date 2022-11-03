@@ -22,6 +22,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(App\Http\Controllers\VehicleController::class)->group(function () {
     Route::get('/vehicles', 'index');
     Route::get('/vehicles/{vehicle}', 'show');
-    Route::get('/vehicles/{vehicle}', 'img');
 });
+
+Route::controller(App\Http\Controllers\BrandController::class)->group(function () {
+    Route::get('/brands', 'index');
+    Route::get('/brands/{brand}', 'show');
+    Route::get('/brand/create', function()
+    {
+        return \View::make('createbrand');
+    });
+    Route::post('/brand', 'store');
+});
+
 

@@ -4,18 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use app\Models\Vehicle;
 
-class Vehicle extends Model
+class Brand extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
     protected $fillable = [
-        "brand_id",
-        "mileage",
-        "short_number",
-        "delivery_date",
-        "image"
+        "brand",
+        "type",
+        "version",
+        "release_date",
+        "logo"
     ];
 }

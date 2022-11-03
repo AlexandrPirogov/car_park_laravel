@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -39,7 +40,16 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params = $request->post();
+        $pval = Brand::where('brand', $params['brand_id'])->get()->toArray()[0];
+        $params['brand_id'] = $pval['id'];
+        $params['image'] = '';
+        $vehicle = Vehicle::create($params);
+        $vehicles = Vehicle::all()->each(function ($vehicle) {
+            $vehicle->makeHidden(["image", "id"]);
+        });;
+
+        return \View::make("vehicles")->with(["vehicles" => $vehicles]);
     }
 
     /**
@@ -50,7 +60,7 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        return \View::make("vehicle")->with(["mileage" => $vehicle->mileage,
+        return \View::make("vehicles")->with(["mileage" => $vehicle->mileage,
                                               "short_number" => $vehicle->short_number,
                                               "image" => $vehicle->image]);
     }
