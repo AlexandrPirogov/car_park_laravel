@@ -6,6 +6,7 @@ use App\Models\Vehicle;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 
+
 class VehicleController extends Controller
 {
     /**
@@ -15,10 +16,10 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $vehicles = Vehicle::all()->each(function ($vehicle) {
+        $tmp = Vehicle::with('brands')->get();
+        $vehicles = $tmp->each(function ($vehicle) {
             $vehicle->makeHidden(["image", "id"]);
-        });;
-
+        });
         return \View::make("vehicles")->with(["vehicles" => $vehicles]);
     }
 

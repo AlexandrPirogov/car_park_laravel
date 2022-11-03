@@ -31,10 +31,16 @@ Route::controller(App\Http\Controllers\VehicleController::class)->group(function
 Route::controller(App\Http\Controllers\BrandController::class)->group(function () {
     Route::get('/brands', 'index');
     Route::get('/brands/{brand}', 'show');
+    
 
     Route::get('/brand/create', function()
     {
         return \View::make('createbrand');
     });
     Route::post('/brands', 'store');
+});
+
+
+Route::controller(App\Http\Controllers\VehicleBrandController::class)->group(function () {
+    Route::get('/vehicles/brand/{brand_id}', 'show');
 });

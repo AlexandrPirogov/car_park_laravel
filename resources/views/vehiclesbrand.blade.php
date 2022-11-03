@@ -17,7 +17,6 @@
             <img src="{{ asset('/storage/images/vehicles/'.$vehicle->image) }}" alt="" width="100" height="100"/>
 
             <div class="container">
-                        <p class="carattrs"><b>Брэнд</b> {{$vehicle->toArray()['brands']['brand']}}</p>
                        <p class="carattrs"><b> Пробег</b> {{$vehicle['mileage']}}</p>
                        <p class="carattrs"><b> Короткий номер</b> {{$vehicle['short_number']}}</p>
                        <p class="carattrs"><b> Дата выпуска</b> {{$vehicle['delivery_date']}}</p>

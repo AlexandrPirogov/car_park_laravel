@@ -19,4 +19,5 @@ class Brand extends Model
         "release_date",
         "logo"
     ];
+
 }
