@@ -22,6 +22,8 @@ class VehicleBrandController extends Controller
     {
         $brand_id = $request->route('brand_id');
         $vehicles = Vehicle::where('brand_id', $brand_id)->get();
-        return \View::make("vehiclesbrand")->with(["vehicles" => $vehicles]);
+        $brand_name = Brand::select('brand')->where('id', $brand_id)->get()->toArray();
+        return \View::make("vehiclesbrand")->with(["vehicles" => $vehicles,
+                                                    "brand" => $brand_name[0]['brand']]);
     }
 }

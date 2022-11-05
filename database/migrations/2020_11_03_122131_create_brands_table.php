@@ -18,6 +18,8 @@ class CreateBrandsTable extends Migration
             $table->string("brand")->unique();
             $table->string("version");
             $table->string("type");
+            $table->integer("seats");
+            $table->integer("engine_power");
             $table->date("release_date");
             $table->string("logo")->nullable();
         });

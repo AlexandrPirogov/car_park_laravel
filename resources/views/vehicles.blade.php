@@ -10,11 +10,14 @@
 <title>Document</title>
 </head>
 <body class="maintext">
-    <h1 style="font-size: 150px">Car Park</h1>
+    <h1 style="font-size: 150px">Доступные экземпляры авто</h1>
     <div class="cars">
             @foreach ($vehicles as $vehicle)
             <div class="container">
-            <img src="{{ asset('/storage/images/vehicles/'.$vehicle->image) }}" alt="" width="100" height="100"/>
+
+            <a href=""><img class="icons" src="/storage/utilities/delete_icon.png" alt="" /></a>
+            <a href=""><img class="icons" src="/storage/utilities/edit_icon.png" alt=""/></a>
+            <img class="cars" src="{{ asset('/storage/images/vehicles/'.$vehicle->image) }}" alt=""/>
 
             <div class="container">
                         <p class="carattrs"><b>Брэнд</b> {{$vehicle->toArray()['brands']['brand']}}</p>

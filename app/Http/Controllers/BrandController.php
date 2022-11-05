@@ -61,6 +61,7 @@ class BrandController extends Controller
                                             "version" => $brand->version,
                                             "type" => $brand->type,
                                             "logo" => $brand->logo,
+                                            "engine_power" => $brand->engine_power,
                                             "release_date" => $brand->release_date]);
     }
 

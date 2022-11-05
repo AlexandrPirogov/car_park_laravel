@@ -16,8 +16,14 @@ class Brand extends Model
         "brand",
         "type",
         "version",
+        "seats",
+        "enginge_power",
         "release_date",
         "logo"
     ];
 
+    public function vehicles()
+    {
+        return $this->belongsTo(vehicles::class);
+    }
 }

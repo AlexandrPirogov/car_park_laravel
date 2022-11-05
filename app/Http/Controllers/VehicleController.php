@@ -61,7 +61,8 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        return \View::make("vehicles")->with(["mileage" => $vehicle->mileage,
+
+        return \View::make("vehicle")->with(["mileage" => $vehicle->mileage,
                                               "short_number" => $vehicle->short_number,
                                               "image" => $vehicle->image]);
     }

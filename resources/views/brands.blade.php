@@ -10,16 +10,21 @@
 <title>Document</title>
 </head>
 <body class="maintext">
-    <h1 style="font-size: 150px">Car Park</h1>
+    <h1 style="font-size: 150px">Брэнды и модели</h1>
     <div class="cars">
             @foreach ($brands as $brand)
             <div class="container">
-            <img src="{{ asset('/storage/images/brands/'.$brand->logo) }}" alt="" width="100" height="100"/>
+
+            <a href=""><img class="icons" src="/storage/utilities/delete_icon.png" alt="" /></a>
+            <a href=""><img class="icons" src="/storage/utilities/edit_icon.png" alt=""/></a>
+            <a href="/vehicles/brand/{{$brand->id}}"><img class="brands" src="{{ asset('/storage/images/brands/'.$brand->logo) }}" alt="" /></a>
 
             <div class="container">
                        <p class="carattrs"><b> Брэнд: </b>: {{$brand['brand']}}</p>
                        <p class="carattrs"><b> Версия: </b>: {{$brand['version']}}</p>
                        <p class="carattrs"><b> Тип: </b>: {{$brand['type']}}</p>
+                       <p class="carattrs"><b> Мест для пассажиров</b>: {{$brand['seats']}}</p>
+                       <p class="carattrs"><b> Мощность двигателя</b>: {{$brand['engine_power']}} Л.С.</p>
                        <p class="carattrs"><b> Дата выпуска: </b>: {{$brand['release_date']}}</p>
             </div>
             </div>
