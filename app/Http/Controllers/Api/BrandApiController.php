@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Brand;
+use App\Http\Resources\BrandResource;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Vehicle;
+use App\Models\Brand;
 
-class BrandController extends Controller
+class BrandApiController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -18,7 +21,7 @@ class BrandController extends Controller
             $brand->makeHidden(["image", "id"]);
         });;
 
-        return \View::make("brands")->with(["brands" => $brands]);
+        return new BrandResource(Brand::all());
     }
 
     /**
@@ -39,24 +42,28 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        $params = $request->post();
+        $params = $request->query();
 
         $path = public_path('storage/images/brands');
         if ( ! file_exists($path) ) mkdir($path, 0777, true);
         
-        $file = $request->file('image');
-        $fileName = trim($file->getClientOriginalName());
-        
+
+        $file = $request->file('iamge');
+        if(!is_null($file))
+        {
+            $fileName = trim($file->getClientOriginalName());
+            $file->move('storage/images/brands', $fileName);   
+        }
+        else
+            $fileName = "none";
 
         $params['logo'] = $fileName;
-        $file->move('storage/images/brands', $fileName);
-
-        
+       
         $brand = Brand::create($params);
         $brands = Brand::all()->each(function ($brand) {
             $brand->makeHidden(["image", "id"]);
         });
-        return \View::make("brands")->with(["brands" => $brands]);
+        return new BrandResource($brand);
     }
 
     /**
@@ -67,12 +74,7 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        return \View::make("brand")->with(["brand" => $brand->brand,
-                                            "version" => $brand->version,
-                                            "type" => $brand->type,
-                                            "logo" => $brand->logo,
-                                            "engine_power" => $brand->engine_power,
-                                            "release_date" => $brand->release_date]);
+        return new BrandResource($brand);
     }
 
     /**
@@ -97,11 +99,9 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        $reqBody = $request->post();
-        unset($reqBody["_method"]);
-        unset($reqBody["_token"]);
+        $reqBody = $request->query();
         Brand::whereId($brand->id)->update($reqBody);
-        return $this->index();
+        return new BrandResource($brand);
     }
 
     /**
@@ -112,19 +112,8 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        $brand->delete();
-        return redirect('/brands')->with('success', 'deleted');
-    }
-
-    public function createBrand()
-    {
-        return \View::make('createbrand');
-    }
-
-    public function storeMedia($request)
-    {
-        
-        
+        //$brand->delete();
+        return new BrandResource($brand);
     }
 
 }

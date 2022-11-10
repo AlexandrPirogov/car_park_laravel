@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Brand;
+use App\Models\Vehicle;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,26 +20,34 @@ Route::get('/', function () {
 });
 
 Route::controller(App\Http\Controllers\VehicleController::class)->group(function () {
-    Route::get('/vehicles', 'index');
-    Route::get('/vehicles/{vehicle}', 'show');
+    Route::get('/vehicles', 'index')->name('vehicles');
+    Route::post('/vehicles', 'store')->name('vehicles.store');;
+    Route::delete('/vehicles/{vehicle}', 'destroy')->name('vehicles.destroy');
+    Route::put('/vehicles/{vehicle}', 'update')->name('vehicles.update');
+    Route::get('/vehicles/{vehicle}', 'show')->name('vehicles.show');;
 
+    Route::get('/vehicle/edit/{vehicle}', function(Vehicle $vehicle){
+
+        $brands = Brand::select(['brand','id'])->get();
+        return \View::make('editvehicle')->with(['vehicle' => $vehicle,
+                                                'brands' => $brands]);
+    });
     Route::get('/vehicle/create', function()
     {
         return \View::make('createvehicle');
-    });
-    Route::post('/vehicles', 'store');
+    })->name('vehicles.create');;
 });
 
 Route::controller(App\Http\Controllers\BrandController::class)->group(function () {
-    Route::get('/brands', 'index');
-    Route::get('/brands/{brand}', 'show');
-    
+    Route::get('/brands', 'index')->name('brands.index');
+    Route::get('/brands/{brand}', 'show')->name('brands.show');
+    Route::get('/brands/edit/{brand}', function(Brand $brand){return \View::make('editbrand')->with(['brand' => $brand]);});
+    Route::get('/brand/create', function() { return \View::make('createbrand');})->name('brands.create');
 
-    Route::get('/brand/create', function()
-    {
-        return \View::make('createbrand');
-    });
-    Route::post('/brands', 'store');
+    Route::delete('/brands/{brand}', 'destroy')->name('brands.destroy');
+    Route::put('/brands/{brand}', 'update')->name('brands.update');
+    
+    Route::post('/brands', 'store')->name('brands.store');
 });
 
 

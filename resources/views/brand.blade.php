@@ -19,8 +19,6 @@
                        <p class="carattrs"><b> Брэнд</b>: {{$brand}}</p>
                        <p class="carattrs"><b> Версия</b>: {{$version}}</p>
                        <p class="carattrs"><b> Тип</b>: {{$type}}</p>
-                       <p class="carattrs"><b> Мест для пассажиров</b>: {{$seats}}</p>
-                       <p class="carattrs"><b> Мощность двигателя</b>: {{$engine_power}} Л.С.</p>
                        <p class="carattrs"><b> Дата выпуска</b>: {{$release_date}}</p>
             </div>
             </div>

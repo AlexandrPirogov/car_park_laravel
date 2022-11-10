@@ -19,19 +19,40 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(App\Http\Controllers\VehicleController::class)->group(function () {
-    Route::get('/vehicles', 'index');
-    Route::get('/vehicles/{vehicle}', 'show');
+Route::controller(App\Http\Controllers\Api\VehicleBrandApiController::class)->group(function () {
+    Route::get('/vehicles/brand', 'index');
+    Route::get('/vehicles/brand/{brand}', 'show');
 });
 
-Route::controller(App\Http\Controllers\BrandController::class)->group(function () {
-    Route::get('/brands', 'index');
-    Route::get('/brands/{brand}', 'show');
-    Route::get('/brand/create', function()
-    {
-        return \View::make('createbrand');
-    });
-    Route::post('/brand', 'store');
+Route::controller(App\Http\Controllers\Api\VehicleApiController::class)->group(function () {
+    Route::get('/vehicles', 'index')->name('vehicles');
+    Route::get('/vehicles/{vehicle}', 'show')->name('vehicles.show');
+    Route::post('/vehicles', 'store')->name('vehicles.store');
+    Route::put('/vehicles/{vehicle}', 'update')->name('vehicles.update');
+    Route::delete('/vehicles/{vehicle}', 'destroy')->name('vehicles.destroy');
+
 });
 
+Route::controller(App\Http\Controllers\Api\BrandApiController::class)->group(function () {
+    Route::get('/brands', 'index')->name('brands.index');
+    Route::get('/brands/{brand}', 'show')->name('brands.show');
+
+    Route::delete('/brands/{brand}', 'destroy')->name('brands.destroy');
+    Route::put('/brands/{brand}', 'update')->name('brands.update');
+    
+    Route::post('/brands', 'store')->name('brands.store');
+});
+
+Route::controller(App\Http\Controllers\Api\DriverApiController::class)->group(function () {
+    Route::get('/drivers', 'index')->name('drivers.index');
+});
+
+Route::controller(App\Http\Controllers\Api\EnterpriseApiController::class)->group(function () {
+    Route::get('/enterprises', 'index')->name('enterprises.index');
+});
+
+
+Route::controller(App\Http\Controllers\VehicleBrandController::class)->group(function () {
+    Route::get('/vehicles/brand/{brand_id}', 'show');
+});
 

@@ -13,10 +13,18 @@
     <h1 style="font-size: 150px">Брэнды и модели</h1>
     <div class="cars">
             @foreach ($brands as $brand)
+            
             <div class="container">
-
-            <a href=""><img class="icons" src="/storage/utilities/delete_icon.png" alt="" /></a>
-            <a href=""><img class="icons" src="/storage/utilities/edit_icon.png" alt=""/></a>
+                <form action="{{ route('brands.destroy', $brand) }}" method="POST">
+                    {{method_field('DELETE')}}
+                    {{ csrf_field() }}
+                    <button><img class="icons" src="/storage/utilities/delete_icon.png" alt="" /></button> 
+                </form>
+                <form action="{{ url('/brands/edit', $brand) }}" method="POST">
+                    {{method_field('GET')}}
+                    {{ csrf_field() }}
+                    <button><img class="icons" src="/storage/utilities/edit_icon.png" alt=""/></button> 
+                </form>
             <a href="/vehicles/brand/{{$brand->id}}"><img class="brands" src="{{ asset('/storage/images/brands/'.$brand->logo) }}" alt="" /></a>
 
             <div class="container">

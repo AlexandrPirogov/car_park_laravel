@@ -13,7 +13,7 @@
     <h1 style="font-size: 150px">Create brand</h1>
     <div class="cars">
             <div class="container">
-                <form action="/brands" method="post" >
+                <form action="/brands" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <fieldset style="background: #f6f8ff; border: 2px solid #4238ca;">
                       <legend>Brand Information</legend>
@@ -21,6 +21,7 @@
                       <input type="text" name="type" placeholder="Тип"><br /><br />
                       <input type="text" name="version" placeholder="Версия"><br /><br />
                       <input type="text" name="release_date" placeholder="Дата выпуска"><br /><br />
+                      <input type="file" name="image" id="inputImage">
                       <button type="submit">Submit</button>
                     </fieldset>
                   

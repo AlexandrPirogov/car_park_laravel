@@ -12,11 +12,20 @@
 <body class="maintext">
     <h1 style="font-size: 150px">Доступные экземпляры авто</h1>
     <div class="cars">
+        
             @foreach ($vehicles as $vehicle)
+            
             <div class="container">
-
-            <a href=""><img class="icons" src="/storage/utilities/delete_icon.png" alt="" /></a>
-            <a href=""><img class="icons" src="/storage/utilities/edit_icon.png" alt=""/></a>
+                <form action="{{ route('vehicles.destroy', $vehicle) }}" method="POST">
+                    {{method_field('DELETE')}}
+                    {{ csrf_field() }}
+                    <button><img class="icons" src="/storage/utilities/delete_icon.png" alt="" /></button> 
+                </form>
+                <form action="{{ url('/vehicle/edit', $vehicle) }}" method="POST">
+                    {{method_field('GET')}}
+                    {{ csrf_field() }}
+                    <button><img class="icons" src="/storage/utilities/edit_icon.png" alt=""/></button> 
+                </form>
             <img class="cars" src="{{ asset('/storage/images/vehicles/'.$vehicle->image) }}" alt=""/>
 
             <div class="container">

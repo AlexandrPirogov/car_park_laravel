@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\VehicleResource;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
 use App\Models\Brand;
 
 
-class VehicleController extends Controller
+class VehicleApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +18,11 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $tmp = Vehicle::with('brands')->get();
-        $vehicles = $tmp->each(function ($vehicle) {
-            $vehicle->makeHidden(["image", "id"]);
+        $vehicles = Vehicle::all();
+        $vehicles = $vehicles->each(function ($vehicle) {
+            $vehicle->makeHidden([ "brands"]);
         });
-        return \View::make("vehicles")->with(["vehicles" => $vehicles]);
+        return new VehicleResource($vehicles);
     }
 
     /**
@@ -41,25 +43,22 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        $params = $request->post();
-
+        $params = $request->query();
         $path = public_path('storage/images/vehicles');
         if ( ! file_exists($path) ) mkdir($path, 0777, true);
         
         $file = $request->file('image');
-        $fileName = trim($file->getClientOriginalName());
-        
-        $params['image'] = $fileName;
-        $file->move('storage/images/vehicles', $fileName);
-
-        $pval = Brand::where('brand', $params['brand_id'])->get()->toArray()[0];
-        $params['brand_id'] = $pval['id'];
-
+        $fileName = '';
+        if(!is_null($file))
+        {
+            $fileName = trim($file->getClientOriginalName());
+            $file->move('storage/images/vehicles', $fileName);
+        }
         $vehicle = Vehicle::create($params);
         $vehicles = Vehicle::all()->each(function ($vehicle) {
             $vehicle->makeHidden(["image", "id"]);
         });;
-        return \View::make("vehicles")->with(["vehicles" => $vehicles]);
+        return new VehicleResource($vehicle);
     }
 
     /**
@@ -71,9 +70,7 @@ class VehicleController extends Controller
     public function show(Vehicle $vehicle)
     {
 
-        return \View::make("vehicle")->with(["mileage" => $vehicle->mileage,
-                                              "short_number" => $vehicle->short_number,
-                                              "image" => $vehicle->image]);
+        return new VehicleResource($vehicle);
     }
 
     /**
@@ -96,14 +93,10 @@ class VehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle)
     {
-        $reqBody = $request->post();
-        $brand = json_decode($reqBody['brand']);
-        unset($reqBody["_method"]);
-        unset($reqBody["_token"]);
-        unset($reqBody["brand"]);
-        $reqBody['brand_id'] = $brand->id;
-        Vehicle::whereId($vehicle->id)->update($reqBody);
-        return redirect('/vehicles')->with('success', 'update');
+        $reqBody = $request->query();
+        $reqBody['brand_id'] = $vehicle->id;
+        $newVehicle = Vehicle::whereId($vehicle->id)->update($reqBody);
+        return new VehicleResource($vehicle);
     }
 
     /**
@@ -114,16 +107,8 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
-        $vehicle->delete();
-        return redirect('/vehicles')->with('success', 'deleted');
-    }
-
-    public function img(Vehicle $vehicle)
-    {
-        header("Content-Type: image/png");
-        return ase64_encode(pg_unescape_bytea(stream_get_contents($vehicle->image)));
-        return \View::make("vehicle", )->with(["mileage" => $vehicle->mileage,
-        "short_number" => $vehicle->short_number,
-        "image" => $vehicle->image]);;
+        //$vehicle->delete();
+        return new VehicleResource($vehicle);
     }
 }
+
