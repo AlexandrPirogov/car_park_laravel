@@ -12,7 +12,7 @@ class Vehicle extends Model
 
     public $timestamps = false;
 
-    protected $appends = ['brands'];
+    
 
     protected $fillable = [
         "brand_id",

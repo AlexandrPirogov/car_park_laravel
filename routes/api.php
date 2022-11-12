@@ -49,6 +49,8 @@ Route::controller(App\Http\Controllers\Api\DriverApiController::class)->group(fu
 
 Route::controller(App\Http\Controllers\Api\EnterpriseApiController::class)->group(function () {
     Route::get('/enterprises', 'index')->name('enterprises.index');
+    Route::get('/enterprises/{enterprise}', 'show')->name('enterprises.show');
+    Route::get('/enterprises/{enterprise}/drivers', 'showdrivers')->name('enterprises.showdrivers');
 });
 
 
@@ -56,3 +58,18 @@ Route::controller(App\Http\Controllers\VehicleBrandController::class)->group(fun
     Route::get('/vehicles/brand/{brand_id}', 'show');
 });
 
+Route::controller(App\Http\Controllers\Api\DriverToVehicleAssignListApiController::class)->group(function () {
+    Route::get('/assignedlist', 'index');
+});
+
+Route::controller(App\Http\Controllers\Api\DriverToVehicleWorkingListApiController::class)->group(function () {
+    Route::get('/working', 'index');
+});
+
+Route::controller(App\Http\Controllers\Api\DriverToEnterpriseApiController::class)->group(function () {
+    Route::get('/enterprisesdrivers', 'index');
+});
+
+Route::controller(App\Http\Controllers\Api\VehicleToEnterpriseApiController::class)->group(function () {
+    Route::get('/enterprisesvehicles', 'index');
+});

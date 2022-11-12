@@ -4,24 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Enterprise;
-use App\Http\Resources\EnterpriseResource;
+use App\Models\DriverToVehicleWorkingList;
+use App\Http\Resources\DriverToVehicleWorkingListResource;
 
-class EnterpriseApiController extends Controller
+class DriverToVehicleWorkingListApiController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return new EnterpriseResource(Enterprise::all());
-    }
-
-    public function indexDrivers()
-    {
-        return new EnterpriseResource(Enterprise::withDrivers());
+        return new DriverToVehicleWorkingListResource(DriverToVehicleWorkingList::all());
     }
 
     /**
@@ -48,21 +43,21 @@ class EnterpriseApiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Enterprise  $enterprise
+     * @param  \App\Models\DriverToVehicleWorkingList  $driverToVehicleWorkingList
      * @return \Illuminate\Http\Response
      */
-    public function show(Enterprise $enterprise)
+    public function show(DriverToVehicleWorkingList $driverToVehicleWorkingList)
     {
-        return new EnterpriseResource($enterprise);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Enterprise  $enterprise
+     * @param  \App\Models\DriverToVehicleWorkingList  $driverToVehicleWorkingList
      * @return \Illuminate\Http\Response
      */
-    public function edit(Enterprise $enterprise)
+    public function edit(DriverToVehicleWorkingList $driverToVehicleWorkingList)
     {
         //
     }
@@ -71,10 +66,10 @@ class EnterpriseApiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Enterprise  $enterprise
+     * @param  \App\Models\DriverToVehicleWorkingList  $driverToVehicleWorkingList
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Enterprise $enterprise)
+    public function update(Request $request, DriverToVehicleWorkingList $driverToVehicleWorkingList)
     {
         //
     }
@@ -82,10 +77,10 @@ class EnterpriseApiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Enterprise  $enterprise
+     * @param  \App\Models\DriverToVehicleWorkingList  $driverToVehicleWorkingList
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Enterprise $enterprise)
+    public function destroy(DriverToVehicleWorkingList $driverToVehicleWorkingList)
     {
         //
     }

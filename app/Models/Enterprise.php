@@ -10,4 +10,11 @@ class Enterprise extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    protected $fillable = [
+        "company_name",
+        "located_in",
+        "created_date"
+    ];
+
 }
